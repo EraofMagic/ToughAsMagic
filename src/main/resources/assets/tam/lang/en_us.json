@@ -1,0 +1,6 @@
+{
+  "tam:components/warmup": "Warm Up",
+  "tam:components/cooldown": "Cool Down",
+  "tam:components/cooldown.desc.delay": "The Amount of Delay between casting and execution",
+  "tam:components/warmup.desc.delay": "The Amount of Delay between casting and execution"
+}
