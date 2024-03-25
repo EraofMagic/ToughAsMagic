@@ -22,13 +22,12 @@ public class ComponentCooldown extends SpellEffect {
 
     @Override
     public ComponentApplicationResult ApplyEffect(SpellSource spellSource, SpellTarget spellTarget, IModifiedSpellPart<SpellEffect> iModifiedSpellPart, SpellContext spellContext) {
-        if(spellTarget.getEntity() instanceof Player player) {
+        if (spellTarget.getEntity() instanceof Player player) {
             ITemperature playertemp = TemperatureHelper.getTemperatureData(player);
-            playertemp.getLevel().decrement((int)iModifiedSpellPart.getValue(Attribute.MAGNITUDE));
+            playertemp.setLevel(playertemp.getLevel().decrement((int)iModifiedSpellPart.getValue(Attribute.MAGNITUDE)));
             return ComponentApplicationResult.SUCCESS;
-        } else {
-            return ComponentApplicationResult.FAIL;
         }
+        return ComponentApplicationResult.FAIL;
     }
 
     @Override
