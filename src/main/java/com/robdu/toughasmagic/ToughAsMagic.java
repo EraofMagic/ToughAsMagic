@@ -1,5 +1,6 @@
 package com.robdu.toughasmagic;
 
+import com.robdu.toughasmagic.items.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,16 +14,19 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod("tam")
+@Mod(ToughAsMagic.MOD_ID)
 public class ToughAsMagic {
 
     public static final Logger LOGGER = LogManager.getLogger();
+
+    public static final String MOD_ID = "tam";
 
     public ToughAsMagic() {
 
         // This is our mod's event bus, used for things like registry or lifecycle events
         IEventBus MOD_BUS = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ItemRegistry.ITEMS.register(MOD_BUS);
         // This listener is fired on both client and server during setup.
         MOD_BUS.addListener(this::commonSetup);
         // This listener is only fired during client setup, so we can use client-side methods here.
