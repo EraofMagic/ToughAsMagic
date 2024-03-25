@@ -2,6 +2,7 @@ package com.robdu.toughasmagic.spells;
 
 import com.mna.api.affinity.Affinity;
 import com.mna.api.spells.ComponentApplicationResult;
+import com.mna.api.spells.attributes.Attribute;
 import com.mna.api.spells.attributes.AttributeValuePair;
 import com.mna.api.spells.base.IModifiedSpellPart;
 import com.mna.api.spells.parts.SpellEffect;
@@ -16,16 +17,15 @@ import toughasnails.api.temperature.TemperatureLevel;
 
 public class ComponentCooldown extends SpellEffect {
     public ComponentCooldown(ResourceLocation registryName, ResourceLocation guiIcon, AttributeValuePair... attributeValuePairs) {
-        super(registryName, guiIcon, attributeValuePairs);
+        super(registryName, guiIcon, new AttributeValuePair(Attribute.MAGNITUDE, 1.0F, 1.0F, 5.0F, 1.0F, 5.0F));
     }
 
     @Override
     public ComponentApplicationResult ApplyEffect(SpellSource spellSource, SpellTarget spellTarget, IModifiedSpellPart<SpellEffect> iModifiedSpellPart, SpellContext spellContext) {
         if(spellTarget.getEntity() instanceof Player player) {
             ITemperature playertemp = TemperatureHelper.getTemperatureData(player);
-            playertemp.setLevel(TemperatureLevel.COLD);
+            playertemp.getLevel().decrement((int)iModifiedSpellPart.getValue(Attribute.MAGNITUDE));
             return ComponentApplicationResult.SUCCESS;
-
         } else {
             return ComponentApplicationResult.FAIL;
         }
