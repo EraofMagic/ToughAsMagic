@@ -70,15 +70,14 @@ public class ComponentWarmUp extends SpellEffect {
     public void SpawnParticles(Level world, Vec3 impact_position, Vec3 normal, int age, @Nullable LivingEntity caster, @Nullable ISpellDefinition recipe) {
         for(int i = 0; i < 360; i++){
             if(i % 2.5 == 0 && age <= 5) {
-                world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FLAME.get()),caster),
-                        x+-Math.sin(i*Math.PI/180)*1,
+                world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FLAME_ORBIT.get().setColor(100,0,0,100)),caster),
+                        x+-Math.sin(i*Math.PI/90)*1,
                         y + (float)i / 100,
-                        z+Math.cos(i*Math.PI/180)*1,
-                        0.0d,
+                        z+Math.cos(i*Math.PI/90)*1,
+                        1.0d,
                         0.1d,
                         0.0d);
             }
         }
-
     }
 }
