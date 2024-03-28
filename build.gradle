@@ -1,5 +1,5 @@
 plugins {
-    id "dev.architectury.loom" version "1.4-SNAPSHOT"
+    id "dev.architectury.loom" version "1.5-SNAPSHOT"
 }
 
 base {
@@ -81,9 +81,6 @@ dependencies {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-1.18.2:2022.11.06@zip")
     }
-
-    // uncomment this if you want to use yarn mappings
-    // mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
     // your forge dependency, this is **required** when using Forge Loom in forge mode!
     forge "net.minecraftforge:forge:${project.forge_version}"
