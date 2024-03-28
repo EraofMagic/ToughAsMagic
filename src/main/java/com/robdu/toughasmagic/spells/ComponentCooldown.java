@@ -12,6 +12,7 @@ import com.mna.api.spells.parts.SpellEffect;
 import com.mna.api.spells.targeting.SpellContext;
 import com.mna.api.spells.targeting.SpellSource;
 import com.mna.api.spells.targeting.SpellTarget;
+import com.mna.particles.types.movers.ParticleOrbitMover;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -58,11 +59,14 @@ public class ComponentCooldown extends SpellEffect {
         if (recipe != null && age <= 5) {
             for (int i = 0; i < 360; i++) {
                 if (i % 5 == 0) {
-                    world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FROST.get()), caster),
-                            impact_position.x - Math.sin(Math.toRadians(i)),
-                            impact_position.y + (float) i / 100,
-                            impact_position.z + Math.cos(Math.toRadians(i)),
-                            0.0d,
+                    double x = impact_position.x - Math.sin(Math.toRadians(i));
+                    double z = impact_position.z + Math.cos(Math.toRadians(i));
+                    double y = impact_position.y + (float) i / 100;
+                    world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FROST.get()).setMover(new ParticleOrbitMover(x, 0.0d, z, 1.0, 0.1, 0.1)), caster),
+                            x,
+                            y,
+                            z,
+                            1.0d,
                             0.1d,
                             0.0d);
                 }
