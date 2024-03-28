@@ -57,7 +57,7 @@ public class ComponentWarmUp extends SpellEffect {
         if (recipe != null && age <= 5) {
             for (int i = 0; i < 360; i++) {
                 if (i % 2.5 == 0) {
-                    world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FLAME_ORBIT.get().setColor(100, 0, 0, 100)), caster),
+                    world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FLAME_ORBIT.get()), caster),
                             impact_position.x - Math.sin(Math.toRadians(i)),
                             impact_position.y + (double) i / 100,
                             impact_position.z + Math.cos(Math.toRadians(i)),
