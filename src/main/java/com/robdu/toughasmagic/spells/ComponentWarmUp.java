@@ -55,7 +55,7 @@ public class ComponentWarmUp extends SpellEffect {
     @Override
     public void SpawnParticles(Level world, Vec3 impact_position, Vec3 normal, int age, @Nullable LivingEntity caster, @Nullable ISpellDefinition recipe) {
         if (recipe != null && age <= 5) {
-            for (int i = 0; i <= 360; i++) {
+            for (int i = 0; i < 360; i++) {
                 if (i % 2.5 == 0) {
                     world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FLAME_ORBIT.get().setColor(100, 0, 0, 100)), caster),
                             impact_position.x - Math.sin(Math.toRadians(i)),

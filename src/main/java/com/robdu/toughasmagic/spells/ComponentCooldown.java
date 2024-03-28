@@ -20,29 +20,19 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import toughasnails.api.temperature.ITemperature;
 import toughasnails.api.temperature.TemperatureHelper;
-import toughasnails.api.temperature.TemperatureLevel;
 
 public class ComponentCooldown extends SpellEffect {
 
-    private static double x = 0;
-    private static double y = 0;
-    private static double z = 0;
-
-    public ComponentCooldown(ResourceLocation registryName, ResourceLocation guiIcon, AttributeValuePair... attributeValuePairs) {
+    public ComponentCooldown(ResourceLocation registryName, ResourceLocation guiIcon) {
         super(registryName, guiIcon, new AttributeValuePair(Attribute.MAGNITUDE, 1.0F, 1.0F, 5.0F, 1.0F, 5.0F));
     }
 
     @Override
     public ComponentApplicationResult ApplyEffect(SpellSource spellSource, SpellTarget spellTarget, IModifiedSpellPart<SpellEffect> iModifiedSpellPart, SpellContext spellContext) {
         if (spellTarget.getEntity() instanceof Player player) {
-
-            x = player.getX();
-            y = player.getY();
-            z = player.getZ();
-
             ITemperature playertemp = TemperatureHelper.getTemperatureData(player);
 
-            playertemp.setLevel(playertemp.getLevel().decrement((int)iModifiedSpellPart.getValue(Attribute.MAGNITUDE)));
+            playertemp.setLevel(playertemp.getLevel().decrement((int) iModifiedSpellPart.getValue(Attribute.MAGNITUDE)));
             return ComponentApplicationResult.SUCCESS;
         }
         return ComponentApplicationResult.FAIL;
@@ -64,23 +54,19 @@ public class ComponentCooldown extends SpellEffect {
     }
 
     @Override
-    public boolean canBeOnRandomStaff() {
-        return super.canBeOnRandomStaff();
-    }
-
-    @Override
     public void SpawnParticles(Level world, Vec3 impact_position, Vec3 normal, int age, @Nullable LivingEntity caster, @Nullable ISpellDefinition recipe) {
-        for(int i = 0; i < 360; i++){
-            if(i % 5 == 0 && age <= 5) {
-                world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FROST.get()),caster),
-                        x+-Math.sin(i*Math.PI/180)*1,
-                        y + (float)i / 100,
-                        z+Math.cos(i*Math.PI/180)*1,
-                        0.0d,
-                        0.1d,
-                        0.0d);
+        if (recipe != null && age <= 5) {
+            for (int i = 0; i < 360; i++) {
+                if (i % 5 == 0) {
+                    world.addParticle(recipe.colorParticle(new MAParticleType(ParticleInit.FROST.get()), caster),
+                            impact_position.x - Math.sin(Math.toRadians(i)),
+                            impact_position.y + (float) i / 100,
+                            impact_position.z + Math.cos(Math.toRadians(i)),
+                            0.0d,
+                            0.1d,
+                            0.0d);
+                }
             }
         }
-
     }
 }
