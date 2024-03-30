@@ -72,6 +72,8 @@ dependencies {
     modApi "curse.maven:tough-as-nails-246391:3804267"
     modApi "curse.maven:mana-and-artifice-406360:4918192"
     modApi 'software.bernie.geckolib:geckolib-forge-1.18:3.0.57'
+    modApi "curse.maven:bed-of-nails-594790:3804180"
+
     // choose what mappings you want to use here
     // leave this uncommented if you want to use
     // mojang's official mappings, or feel free
