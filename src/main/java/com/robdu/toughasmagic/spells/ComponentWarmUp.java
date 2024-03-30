@@ -35,6 +35,7 @@ public class ComponentWarmUp extends SpellEffect {
     @Override
     public ComponentApplicationResult ApplyEffect(SpellSource spellSource, SpellTarget spellTarget, IModifiedSpellPart<SpellEffect> iModifiedSpellPart, SpellContext spellContext) {
         if (spellTarget.getEntity() instanceof Player player) {
+            //TODO: Copy this over to ComponentCoolDown and modify accordingly
             if (ModList.get().isLoaded("bon")) {
                 LazyOptional<IBodyTemp> playertemp = player.getCapability(BodyTemp.INSTANCE, null);
                 playertemp.ifPresent(data -> {
