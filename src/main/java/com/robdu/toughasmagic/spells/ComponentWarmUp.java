@@ -2,7 +2,6 @@ package com.robdu.toughasmagic.spells;
 
 import com.github.wolfiewaffle.bon.capability.temperature.BodyTemp;
 import com.github.wolfiewaffle.bon.capability.temperature.IBodyTemp;
-import com.github.wolfiewaffle.bon.event.player.PlayerTickEventHandler;
 import com.mna.api.affinity.Affinity;
 import com.mna.api.particles.MAParticleType;
 import com.mna.api.particles.ParticleInit;
@@ -22,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.ModList;
-import org.apache.commons.lang3.ObjectUtils;
 import org.jetbrains.annotations.Nullable;
 import toughasnails.api.temperature.ITemperature;
 import toughasnails.api.temperature.TemperatureHelper;
