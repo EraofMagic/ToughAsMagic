@@ -45,6 +45,8 @@ public class ComponentWarmUp extends SpellEffect {
                          if (data.getTemp() > 80.0f) {
                              data.setTemp(80.0f);
                          }
+                     } else {
+                         data.setTemp(currentTemp + 20 * (int) iModifiedSpellPart.getValue(Attribute.MAGNITUDE));
                      }
                 });
             }
