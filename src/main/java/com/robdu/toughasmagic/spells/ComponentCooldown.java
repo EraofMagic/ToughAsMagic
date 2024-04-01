@@ -1,5 +1,7 @@
 package com.robdu.toughasmagic.spells;
 
+import com.github.wolfiewaffle.bon.capability.temperature.BodyTemp;
+import com.github.wolfiewaffle.bon.capability.temperature.IBodyTemp;
 import com.mna.api.affinity.Affinity;
 import com.mna.api.particles.MAParticleType;
 import com.mna.api.particles.ParticleInit;
@@ -18,6 +20,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.Nullable;
 import toughasnails.api.temperature.ITemperature;
 import toughasnails.api.temperature.TemperatureHelper;
@@ -25,12 +29,26 @@ import toughasnails.api.temperature.TemperatureHelper;
 public class ComponentCooldown extends SpellEffect {
 
     public ComponentCooldown(ResourceLocation registryName, ResourceLocation guiIcon) {
-        super(registryName, guiIcon, new AttributeValuePair(Attribute.MAGNITUDE, 1.0F, 1.0F, 5.0F, 1.0F, 5.0F));
+        super(registryName, guiIcon, new AttributeValuePair(Attribute.MAGNITUDE, 1.0F, 1.0F, 5.0F, 1.0F, 5.0F), new AttributeValuePair(Attribute.PRECISION, 0.0f, 0.0f, 1.0f, 1.0f, 10.0f));
     }
 
     @Override
     public ComponentApplicationResult ApplyEffect(SpellSource spellSource, SpellTarget spellTarget, IModifiedSpellPart<SpellEffect> iModifiedSpellPart, SpellContext spellContext) {
         if (spellTarget.getEntity() instanceof Player player) {
+            if (ModList.get().isLoaded("bon")) {
+                LazyOptional<IBodyTemp> playertemp = player.getCapability(BodyTemp.INSTANCE, null);
+                playertemp.ifPresent(data -> {
+                    float currentTemp = data.getTemp();
+                    if ((int) iModifiedSpellPart.getValue(Attribute.PRECISION) > 0.0) {
+                        data.setTemp(currentTemp - 20 * (int) iModifiedSpellPart.getValue(Attribute.MAGNITUDE));
+                        if (data.getTemp() < 30.0f) {
+                            data.setTemp(30.0f);
+                        }
+                    } else {
+                        data.setTemp(currentTemp - 20 * iModifiedSpellPart.getValue(Attribute.MAGNITUDE));
+                    }
+                });
+            }
             ITemperature playertemp = TemperatureHelper.getTemperatureData(player);
 
             playertemp.setLevel(playertemp.getLevel().decrement((int) iModifiedSpellPart.getValue(Attribute.MAGNITUDE)));

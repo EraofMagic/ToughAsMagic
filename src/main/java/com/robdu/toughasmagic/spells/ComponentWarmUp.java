@@ -53,7 +53,6 @@ public class ComponentWarmUp extends SpellEffect {
 
             ITemperature playertemp = TemperatureHelper.getTemperatureData(player);
             playertemp.setLevel(playertemp.getLevel().increment((int) iModifiedSpellPart.getValue(Attribute.MAGNITUDE)));
-            playertemp.setTargetLevel(playertemp.getTargetLevel().increment((int) iModifiedSpellPart.getValue(Attribute.MAGNITUDE)));
             return ComponentApplicationResult.SUCCESS;
         }
         return ComponentApplicationResult.FAIL;
